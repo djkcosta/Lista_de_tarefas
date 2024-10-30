@@ -1,5 +1,3 @@
-#aqui são informadas as classes que incluem as tabelas no banco de dados
-
 from app import db
 from datetime import datetime
 

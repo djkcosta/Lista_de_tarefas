@@ -7,7 +7,7 @@ from app.forms import TarefasForm
 def lista_tarefas():
     tarefas = Tarefas.query.all()
     form = TarefasForm()
-    print(tarefas)  # Para ver se as tarefas estão sendo recuperadas
+    print(tarefas)  
     return render_template('index.html', tarefas=tarefas, form=form)
 
 @app.route('/adicionar/', methods=['GET', 'POST'])
@@ -25,8 +25,8 @@ def atualizar_tarefa(tarefa_id):
     tarefa = Tarefas.query.get_or_404(tarefa_id)
     form = TarefasForm(obj=tarefa)
     if form.validate_on_submit():
-        tarefa.titulo = form.title.data  # Certifique-se de usar o nome correto do campo
-        tarefa.descricao = form.description.data  # Certifique-se de usar o nome correto do campo
+        tarefa.titulo = form.title.data  
+        tarefa.descricao = form.description.data 
         db.session.commit()
         return redirect(url_for('lista_tarefas'))
     return render_template('atualizar_tarefa.html', form=form)
@@ -43,10 +43,10 @@ from flask import redirect, url_for, flash
 @app.route('/concluir/<int:tarefa_id>', methods=['POST'])
 def concluir_tarefa(tarefa_id):
     tarefa = Tarefas.query.get_or_404(tarefa_id)
-    print(f"Tarefa antes da atualização: {tarefa.concluida}")  # Debug: mostra o status atual
+    print(f"Tarefa antes da atualização: {tarefa.concluida}")  
     tarefa.concluida = True
     db.session.commit()
-    print(f"Tarefa após a atualização: {tarefa.concluida}")  # Debug: mostra o status após a mudança
+    print(f"Tarefa após a atualização: {tarefa.concluida}")  
     flash('Tarefa concluída com sucesso!', 'success')
     return redirect(url_for('lista_tarefas'))
 
